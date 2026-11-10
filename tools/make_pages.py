@@ -211,7 +211,7 @@ def main():
         [(None, "trap-win", "")],
     )
     write_menu_page(
-        "05-traps-against-white.md", 5, "Traps Against White",
+        "05-traps-against-white.md", 5, "Traps against White",
         "Games White lost in 10 to 15 moves. Check which move let Black in. They are short, so the guessing is quick.",
         [(None, "trap-lose", "")],
     )
