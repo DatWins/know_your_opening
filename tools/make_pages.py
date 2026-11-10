@@ -184,7 +184,7 @@ def main():
         "04-traps.md", 4, "Traps",
         "Traps are games that ended within 10 to 15 moves. They are short, so the guessing is quick.",
         [
-            ("Traps White sets", "trap-win",
+            ("Traps White Set", "trap-win",
              "Games White won in 10 to 15 moves. Black walked into something."),
             ("Traps against White", "trap-lose",
              "Games White lost in 10 to 15 moves. Check which move let Black in."),

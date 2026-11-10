@@ -7,7 +7,7 @@ header_menu: true
 ---
 Traps are games that ended within 10 to 15 moves. They are short, so the guessing is quick.
 
-## Traps White sets
+## Traps White Set
 
 Games White won in 10 to 15 moves. Black walked into something.
 
