@@ -1,7 +1,7 @@
 ---
-title: "Traps White Set"
-header_menu_title: "Traps White Set"
-navigation_menu_title: "Traps White Set"
+title: "TRAPS WHITE SET"
+header_menu_title: "TRAPS WHITE SET"
+navigation_menu_title: "TRAPS WHITE SET"
 weight: 4
 header_menu: true
 ---

@@ -1,7 +1,7 @@
 ---
-title: "Traps against White"
-header_menu_title: "Traps against White"
-navigation_menu_title: "Traps against White"
+title: "TRAPS AGAINST WHITE"
+header_menu_title: "TRAPS AGAINST WHITE"
+navigation_menu_title: "TRAPS AGAINST WHITE"
 weight: 5
 header_menu: true
 ---
