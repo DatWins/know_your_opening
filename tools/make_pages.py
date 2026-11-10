@@ -7,7 +7,10 @@ Only the Python standard library is needed (no chess package).
 
   How You Win   games White won (1-0), the best-rated SAMPLE of them
   How You Lose  games White lost (0-1), the best-rated SAMPLE of them
-  Traps         every game that ends in 10 to 15 moves: White won (White sets the trap) or lost (trap against White)
+  Traps White Set      games that end in 10 to 15 moves and that White won (Black walked into a trap)
+  Traps against White  games that end in 10 to 15 moves and that White lost
+  Middle Game          White's moves 15 to 30, games cut after move 30
+  Endgame              White's moves 35 to the end
 
 Each game page guesses White's moves, from the position after 1.Nc3 and Black's reply.
 Change SAMPLE to show more or fewer games on the How You Win and How You Lose menus.
@@ -203,22 +206,22 @@ def main():
         [(None, "lose", "")],
     )
     write_menu_page(
-        "04-traps.md", 4, "Traps",
-        "Traps are games that ended within 10 to 15 moves. They are short, so the guessing is quick.",
-        [
-            ("Traps White Set", "trap-win",
-             "Games White won in 10 to 15 moves. Black walked into something."),
-            ("Traps against White", "trap-lose",
-             "Games White lost in 10 to 15 moves. Check which move let Black in."),
-        ],
+        "04-traps-white-set.md", 4, "Traps White Set",
+        "Games White won in 10 to 15 moves. Black walked into something. They are short, so the guessing is quick.",
+        [(None, "trap-win", "")],
     )
     write_menu_page(
-        "05-middle-game.md", 5, "Middle Game",
+        "05-traps-against-white.md", 5, "Traps against White",
+        "Games White lost in 10 to 15 moves. Check which move let Black in. They are short, so the guessing is quick.",
+        [(None, "trap-lose", "")],
+    )
+    write_menu_page(
+        "06-middle-game.md", 6, "Middle Game",
         "White's moves 15 to 30 in games that reached move 30. Each game stops after move 30.",
         [(None, "middle", "")],
     )
     write_menu_page(
-        "06-endgame.md", 6, "Endgame",
+        "07-endgame.md", 7, "Endgame",
         "White's moves from move 35 to the end of games that lasted that long.",
         [(None, "endgame", "")],
     )
