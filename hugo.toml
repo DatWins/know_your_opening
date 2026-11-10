@@ -1,0 +1,38 @@
+baseURL = "https://datwins.github.io/know_your_opening/"
+
+disableKinds = ["section", "taxonomy", "term", "RSS", "robotsTXT"]
+
+defaultContentLanguage = "en"
+
+theme = "hugo-scroll"
+
+title = "Know Your Opening – 1.Nc3"
+
+enableGitInfo = false
+enableEmoji = true
+
+[params]
+    favicon = "images/favicon.png"
+    images = ["images/cover-image.jpg"]
+    title_guard = true
+    title = "Know Your Opening"
+    description = "1.Nc3: guess White's moves in the games where White wins, loses, and falls into traps."
+    language_menu = false
+    show_current_lang = false
+    hidedesignbyline = false
+    invertSectionColors = false
+    image_options = "webp q90 lanczos photo"
+    combine_page_and_site_title = false
+
+    [params.footer]
+    showContactIcons = false
+    showFooterLinks = false
+
+[languages]
+  [languages.en]
+    weight = 10
+    languageName = "English"
+    contentDir = "content/en"
+
+[markup.goldmark.renderer]
+  unsafe = true

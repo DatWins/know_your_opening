@@ -1,0 +1,55 @@
+{{- /* The game itself. It reads the moves, start, side and pars from the page's front matter. */ -}}
+{{- $p := .Page.Params -}}
+{{- $game := dict "moves" $p.moves "startPly" (int $p.startply) "side" (default "w" $p.side) "pars" $p.pars -}}
+<div class="gtm" data-game='{{ $game | jsonify }}'>
+  <p class="gtm-intro"></p>
+  <div class="gtm-main">
+    <aside class="gtm-side">
+      <p class="gtm-label gtm-startlabel">Start position</p>
+      <div>
+        <div class="gtm-board gtm-startboard" aria-label="Start position"></div>
+        <div class="gtm-coords" aria-hidden="true"><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span></div>
+      </div>
+      <label class="gtm-toggle"><input type="checkbox" class="gtm-showlive"> Show the board as I play (easier)</label>
+      <div class="gtm-livewrap" hidden>
+        <p class="gtm-label">Board now</p>
+        <div class="gtm-board gtm-liveboard" aria-label="Current position"></div>
+      </div>
+      <p class="gtm-blind"><strong>Board hidden.</strong>Keep the position in your head. Every move is written on the scoresheet.</p>
+    </aside>
+    <section class="gtm-play">
+      <div class="gtm-prompt">
+        <h3 class="gtm-ask">Your move?</h3>
+        <form class="gtm-form" autocomplete="off">
+          <input class="gtm-guess" aria-label="Your move" placeholder="e.g. Nf3" spellcheck="false" autocapitalize="off">
+          <button type="submit">Check</button>
+          <button type="button" class="ghost gtm-hint">Hint</button>
+          <button type="button" class="ghost gtm-reveal">Show me</button>
+        </form>
+        <div class="gtm-tries" aria-live="polite"></div>
+        <p class="gtm-msg" aria-live="polite"></p>
+        <div class="gtm-hintbox" hidden>
+          <p class="gtm-label">Hint: the board now</p>
+          <div class="gtm-board gtm-hintboard" aria-label="Current position"></div>
+        </div>
+      </div>
+      <div class="gtm-done" hidden></div>
+      <div class="gtm-total"><span class="gtm-score">0</span><span class="of gtm-scoreof"></span><span class="of gtm-best"></span></div>
+      <div class="gtm-sheet"><table>
+        <thead><tr><th></th><th class="gtm-th-w">White's move</th><th class="num">Par</th><th class="num">Your points</th><th class="gtm-th-b">Black's move</th></tr></thead>
+        <tbody class="gtm-rows"></tbody>
+      </table></div>
+      <div><button type="button" class="ghost gtm-restart">Start over</button></div>
+      <div class="gtm-how">
+        <p><strong>How to play.</strong> Type the move in normal notation: <code>Nf3</code>, <code>dxe5</code>, <code>Qh5+</code>, <code>O-O</code>, <code>e8=Q</code>. Checks and captures can be left out, and <code>d4e5</code> style works too.</p>
+        <p>Right on the first try earns the full par; each wrong guess takes one point off. When the tries run out, the move is shown and scores 0. <strong>Hint</strong> shows the board for the move you are on; 1 point comes off that move's score when you find it. An illegal move costs nothing.</p>
+      </div>
+    </section>
+  </div>
+  <noscript><p class="gtm-nojs">This game needs JavaScript turned on.</p></noscript>
+</div>
+{{- if not (.Page.Store.Get "gtm-scripts") }}{{ .Page.Store.Set "gtm-scripts" true }}
+<script src="{{ "js/chess-0.10.3.js" | relURL }}"></script>
+<script src="{{ "js/pieces.js" | relURL }}"></script>
+<script src="{{ "js/guess.js" | relURL }}"></script>
+{{- end }}

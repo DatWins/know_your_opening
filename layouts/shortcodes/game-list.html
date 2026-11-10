@@ -1,0 +1,16 @@
+{{- /* List the guess-the-move games of one list. Usage: {{< game-list list="win" >}} */ -}}
+{{- $want := .Get "list" -}}
+{{- $list := slice -}}
+{{- range site.RegularPages -}}
+  {{- if eq (string .Params.list) $want }}{{ $list = $list | append . }}{{ end -}}
+{{- end -}}
+{{- if $list }}
+<ul class="game-list">
+{{- range sort $list "Params.year" "desc" }}
+  {{- $n := len (split (trim (string .Params.moves) " ") " ") }}
+  <li><a href="{{ .RelPermalink }}"><span class="t">{{ .Title }}</span><span class="m">{{ .Params.opening }} · {{ .Params.where }} · {{ div (add $n 1) 2 }} moves</span></a></li>
+{{- end }}
+</ul>
+{{- else }}
+<p><em>Games coming soon.</em></p>
+{{- end }}

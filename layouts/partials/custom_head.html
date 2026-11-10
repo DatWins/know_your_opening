@@ -1,0 +1,163 @@
+<!-- A partial to be overwritten by the user.
+     Its content will appear before the closing </head>-tag -->
+
+<!-- Custom CSS via inline styles
+     You may use this template to add custom CSS to your site like so: -->
+
+
+     <!-- Some variables to change
+
+     :root {
+  --cover-text-color:#37501a; this is menu text
+  --highlight:#86c440;
+  --highlight-contrast:var(--cover-text-color);
+  --highlight-inverse:var(--cover-text-color);
+  --highlight-inverse-contrast:white;
+  --cover-title-and-description-guard-bg-color:rgba(255, 255, 255, 0.6);
+  --cover-title-text-shadow:white 0px 0px 7px;
+  --sticky-menu-text-color:#9fd067;
+  --section-light-text-color:#6e5d59;
+  --section-light-bg-color:#fffff5;
+  --section-dark-text-color:var(--section-light-bg-color);
+  --section-dark-bg-color:#b80135;
+  --section-uni-quote:grey;
+  --section-uni-code-bg-color:#e0ded7;
+  --single-page-text-color:var(--section-light-text-color);
+  --single-page-bg-color:var(--section-light-bg-color);
+  --footer-color-background:#22343a;
+  --footer-color:#bbc7cc;
+  --ul-li-icon:fa-asterisk
+}
+
+-->
+<style>
+/* Guess the Move palette: a blue chessboard
+   navy #16263d · ice #e6edf3 · board blue #8ca2ad · accent #2c6fbf */
+:root {
+    --cover-text-color:#e6edf3;
+    --cover-title-and-description-guard-bg-color: rgba(15,26,43,.72);
+    --cover-title-text-shadow: none;
+
+    --highlight:#e6edf3;
+    --highlight-contrast:#16263d;
+    --highlight-inverse:#2c6fbf;
+    --highlight-inverse-contrast:#e6edf3;
+
+    --sticky-menu-text-color:#8ca2ad;
+
+    --section-light-bg-color:#e6edf3;
+    --section-light-text-color:#16263d;
+    --section-dark-bg-color:#16263d!important;
+    --section-dark-text-color:#e6edf3!important;
+    --section-uni-quote:#5c7287;
+    --section-uni-code-bg-color:#d0dbe5;
+
+    --footer-color-background:#0f1a2b;
+    --footer-color:#a9bccb;
+
+     --ul-li-icon: ;
+}
+.blog-title, .blog-description { color:#e6edf3 !important; }
+.title-and-description-guard { border:1px solid rgba(140,162,173,.55); }
+#site-head .btn.site-menu { border:none; }
+.post-content a { text-decoration-color:#8ca2ad; text-underline-offset:3px; }
+.post-content a:hover { color:#2c6fbf; }
+.post-holder.dark .post-content a:hover { color:#9cc3f0; }
+.fixed-nav a.fn-item.active { color:#2c6fbf; }
+/* chess site: smaller project headings with space above them */
+.post-content h2 { font-size: 1.45em; margin-top: 1.6em; }
+.post-title { margin-bottom: 0.4em; }
+
+/* ---------- phones & tablets ---------- */
+@media only screen and (max-width: 1130px) {
+  /* sticky menu: one row of large, easy-to-tap buttons that scrolls sideways */
+  .fixed-nav {
+    flex-wrap: nowrap !important; justify-content: flex-start; align-items: center; gap: 6px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    padding: 8px 10px !important; background: #16263d !important; box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    box-sizing: border-box;
+  }
+  .fixed-nav::-webkit-scrollbar { display: none; }
+  a.fn-item {
+    display: inline-block !important; flex: 0 0 auto; margin: 0 !important;
+    padding: 9px 14px; border-radius: 999px; white-space: nowrap;
+    font-size: 15px; line-height: 1.2; letter-spacing: .02em;
+    color: #e6edf3 !important; background: rgba(230,237,243,.12); opacity: .9;
+  }
+  a.fn-item.active { background: #e6edf3; color: #16263d !important; opacity: 1; }
+  .post-holder .post { scroll-margin-top: 64px; }
+
+  /* cover: menu buttons big enough for a thumb */
+  #site-head .btn.site-menu { padding: 10px 16px; margin: 5px 3px; font-size: 15px; }
+  #site-head .blog-title { font-size: 3.4rem; }
+  #site-head .blog-description { font-size: 1.9rem; }
+
+  /* links in the sections become proper tap targets */
+  .post-content ul { padding-left: 0; list-style: none; }
+  .post-content li { margin: .6em 0; }
+  .post-content li a {
+    display: inline-block; padding: 9px 16px; margin: 3px 6px 3px 0;
+    border: 1.5px solid currentColor; border-radius: 10px; text-decoration: none; line-height: 1.3;
+  }
+  .post-content h2 { font-size: 1.3em; overflow-wrap: anywhere; }
+  .post-content { overflow-wrap: break-word; }
+}
+
+</style>
+<script>
+/* keep the highlighted menu button visible in the sideways-scrolling phone menu */
+document.addEventListener('DOMContentLoaded', function () {
+  var nav = document.querySelector('.fixed-nav'); if (!nav) return; var last = null;
+  window.addEventListener('scroll', function () {
+    var a = nav.querySelector('.fn-item.active'); if (!a || a === last || nav.scrollWidth <= nav.clientWidth) return; last = a;
+    nav.scrollTo({ left: a.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2, behavior: 'smooth' });
+  }, { passive: true });
+});
+</script>
+
+<!-- Custom CSS via "custom.css"-file
+     If you would rather place your custom CSS into
+     a separate file, create a "custom.css" in your
+     local "static/css"-directory. Then add a <link>-tag
+     referencing your "custom.css" like so: -->
+
+<!-- <link rel="stylesheet" href='{{ "css/custom.css" | absURL }}'> -->
+
+<!-- Custom CSS: Color Codes
+     You may checkout https://htmlcolorcodes.com/ to get those
+     weird color codes (like "#22343A") ;-). -->
+
+<!-- Custom link-tags for different icons
+     Generated via https://favicon.io/favicon-generator/ -->
+
+{{ with resources.Get "images/apple-touch-icon.png" }}<link rel="apple-touch-icon" sizes="180x180" href="{{ .RelPermalink }}" />{{ end }}
+{{ with resources.Get "images/favicon.svg" }}<link rel="icon" type="image/svg+xml" href="{{ .RelPermalink }}" />{{ end }}
+{{ range seq 9 4 }}{{ $size := pow 2 . }}{{ $file := replace "images/favicon-##x##.png" "##" $size }}{{ with resources.Get $file }}
+<link rel="icon" type="{{ .MediaType.Type }}" sizes="{{- $size -}}x{{- $size -}}" href="{{ .RelPermalink }}" />{{ end }}{{ end }}
+
+<style>
+/* sub menu: openings within a group */
+.submenu { display:flex; flex-wrap:wrap; gap:8px; margin:1.1em 0 1.6em; }
+.submenu .sub-item { display:inline-block; padding:7px 14px; border-radius:999px; font-size:.82em; line-height:1.3;
+  text-decoration:none !important; border:1.5px solid #16263d; }
+.submenu .ready { background:#16263d; color:#e6edf3 !important; }
+.submenu .ready:hover, .submenu .ready:focus-visible { background:#2c6fbf; border-color:#2c6fbf; color:#e6edf3 !important; }
+.submenu .ready:focus-visible { outline:3px solid #2c6fbf; outline-offset:2px; }
+.submenu .soon { color:#16263d; opacity:.5; border-style:dashed; cursor:default; }
+.post-holder.dark .submenu .sub-item { border-color:#e6edf3; }
+.post-holder.dark .submenu .ready { background:#e6edf3; color:#16263d !important; }
+.post-holder.dark .submenu .soon { color:#e6edf3; }
+.post-content h2 { scroll-margin-top:72px; }
+@media only screen and (max-width: 1130px) {
+  .submenu { gap:7px; }
+  .submenu .sub-item { padding:8px 13px; font-size:14px; }
+}
+</style>
+<style>
+/* keep chess notation as written (1.e4, 1.Nf3) instead of ALL CAPS */
+#site-head .btn.site-menu, .fixed-nav a.fn-item { text-transform:none !important; letter-spacing:.02em; }
+#site-head .btn.site-menu { font-size:1.05em; }
+.post-holder.dark .submenu .soon { opacity:.62; }
+</style>
+
+<link rel="stylesheet" href='{{ "css/guess.css" | relURL }}'>
