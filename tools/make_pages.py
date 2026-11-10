@@ -24,6 +24,9 @@ SAMPLE = 40          # games on How You Win and How You Lose (the best-rated one
 TRAP_MIN, TRAP_MAX = 10, 15
 TOTAL_PAR = 100      # points shared over the moves of each game
 START_PLY = 2        # 1.Nc3 and Black's reply are shown; guessing starts with White's second move
+MIDDLE_START_PLY = 28   # White's 15th move (ply index 28)
+MIDDLE_LAST_PLY = 60    # the middle game page stops after Black's 30th move (plies 0 to 59)
+ENDGAME_START_PLY = 68  # White's 35th move (ply index 68)
 SAN = re.compile(r"^(O-O(-O)?|[KQRBN]?[a-h]?[1-8]?x?[a-h][1-8](=[QRBN])?)[+#]?$")
 
 
@@ -80,17 +83,25 @@ def clean(s):
     return s.replace('"', "'").replace("?", "").strip()
 
 
-def write_game(list_name, h, moves):
+def write_game(list_name, h, moves, start_ply=START_PLY, last_ply=None, span=None):
+    """span is None for a whole game (guessing to the end); otherwise a page for a stretch of moves,
+    e.g. span="from move 15 to move 30", and last_ply cuts the moves shown at that point."""
     white, black = clean(h.get("White", "?")), clean(h.get("Black", "?"))
     year = clean(h.get("Date", ""))[:4]
     place = clean(h.get("Event") or h.get("Site", ""))
     where = ", ".join(x for x in (place, year) if x)
     opening = clean(h.get("ECO", ""))
-    guess_plies = [p for p in range(START_PLY, len(moves)) if p % 2 == 0]
+    if last_ply is not None:
+        moves = moves[:last_ply]
+    guess_plies = [p for p in range(start_ply, len(moves)) if p % 2 == 0]
     if not guess_plies:
         return None
     pars = split_par(TOTAL_PAR, len(guess_plies))
-    ending = "checkmate" if moves[-1].endswith("#") else "resignation"
+    if span:
+        ending_text = span
+    else:
+        ending = "checkmate" if moves[-1].endswith("#") else "resignation"
+        ending_text = f"the game ends in {ending}"
 
     base = f"{list_name}-{surname(h.get('White', ''))}-{surname(h.get('Black', ''))}"
     folder, n = GAMES / base, 2
@@ -107,12 +118,12 @@ def write_game(list_name, h, moves):
         f'opening: "{opening}"\n'
         f'list: "{list_name}"\n'
         f'moves: "{" ".join(moves)}"\n'
-        f"startply: {START_PLY}\n"
+        f"startply: {start_ply}\n"
         'side: "w"\n'
         f"pars: [{','.join(map(str, pars))}]\n"
         "---\n"
         f"{white} – {black}, {where}. {opening}. White to find {len(guess_plies)} moves; "
-        f"the game ends in {ending}. Par for the game is {sum(pars)}.\n\n"
+        f"{ending_text}. Par for the game is {sum(pars)}.\n\n"
         "{{< guessgame >}}\n"
     )
     (folder / "index.md").write_text(page, encoding="utf-8")
@@ -154,17 +165,28 @@ def main():
     def short(items):
         return [(h, m) for h, m in items if TRAP_MIN <= math.ceil(len(m) / 2) <= TRAP_MAX]
 
+    def reaching(min_plies):
+        return [(h, m) for h, m in games if len(m) >= min_plies]
+
     made = {
         "win": best(wins),
         "lose": best(losses),
         "trap-win": short(wins),
         "trap-lose": short(losses),
+        "middle": best(reaching(MIDDLE_LAST_PLY)),
+        "endgame": best(reaching(ENDGAME_START_PLY + 1)),
+    }
+    # Middle game: guess White's moves 15 to 30 only, so each game is cut after move 30.
+    # Endgame: guess from move 35 to the end of the game.
+    extra = {
+        "middle": dict(start_ply=MIDDLE_START_PLY, last_ply=MIDDLE_LAST_PLY, span="from move 15 to move 30"),
+        "endgame": dict(start_ply=ENDGAME_START_PLY, span="from move 35 to the end"),
     }
     counts = {}
     for list_name, items in made.items():
         counts[list_name] = 0
         for h, m in items:
-            if write_game(list_name, h, m):
+            if write_game(list_name, h, m, **extra.get(list_name, {})):
                 counts[list_name] += 1
 
     HOME.mkdir(parents=True, exist_ok=True)
@@ -189,6 +211,16 @@ def main():
             ("Traps against White", "trap-lose",
              "Games White lost in 10 to 15 moves. Check which move let Black in."),
         ],
+    )
+    write_menu_page(
+        "05-middle-game.md", 5, "Middle Game",
+        "White's moves 15 to 30 in games that reached move 30. Each game stops after move 30.",
+        [(None, "middle", "")],
+    )
+    write_menu_page(
+        "06-endgame.md", 6, "Endgame",
+        "White's moves from move 35 to the end of games that lasted that long.",
+        [(None, "endgame", "")],
     )
     print(f"read {len(games)} games: {len(wins)} White wins, {len(losses)} White losses")
     for k, v in counts.items():
