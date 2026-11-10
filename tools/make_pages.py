@@ -206,12 +206,12 @@ def main():
         [(None, "lose", "")],
     )
     write_menu_page(
-        "04-traps-white-set.md", 4, "TRAPS WHITE SET",
+        "04-traps-white-set.md", 4, "Traps White Set",
         "Games White won in 10 to 15 moves. Black walked into something. They are short, so the guessing is quick.",
         [(None, "trap-win", "")],
     )
     write_menu_page(
-        "05-traps-against-white.md", 5, "TRAPS AGAINST WHITE",
+        "05-traps-against-white.md", 5, "Traps Against White",
         "Games White lost in 10 to 15 moves. Check which move let Black in. They are short, so the guessing is quick.",
         [(None, "trap-lose", "")],
     )
