@@ -1,4 +1,4 @@
-baseURL = "https://datwins.github.io/know_your_opening/"
+baseURL = "https://datwins.github.io/guess_nc3_opening/"
 
 disableKinds = ["section", "taxonomy", "term", "RSS", "robotsTXT"]
 
