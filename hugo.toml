@@ -6,7 +6,7 @@ defaultContentLanguage = "en"
 
 theme = "hugo-scroll"
 
-title = "Know Your Opening – 1.Nc3"
+title = "Guess Your Nc3"
 
 enableGitInfo = false
 enableEmoji = true
@@ -15,7 +15,7 @@ enableEmoji = true
     favicon = "images/favicon.png"
     images = ["images/cover-image.jpg"]
     title_guard = true
-    title = "Know Your Opening"
+    title = "How Much Do You Know about 1.Nc3 ?"
     description = "1.Nc3: guess White's moves in the games where White wins, loses, and falls into traps."
     language_menu = false
     show_current_lang = false
